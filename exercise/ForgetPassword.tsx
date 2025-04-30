@@ -14,7 +14,10 @@ import {
 import { Icon } from 'react-native-vector-icons/Icon';
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-const ForgetPassword = ()=> {
+import { RootStackParamList } from '../type/type'; 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+type ForgetPasswordProps = NativeStackScreenProps<RootStackParamList, 'ForgetPassword'>;
+const ForgetPassword:React.ComponentType<ForgetPasswordProps> = ({navigation})=> {
 
     const [email, setEmail] = useState('');
    
@@ -65,7 +68,7 @@ const ForgetPassword = ()=> {
              <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
                                      <Text style={styles.loginBtnText}>Enter Reset Email</Text>
                                  </TouchableOpacity>
-                    <TouchableOpacity style={styles.createBtn} onPress={handleLogin}>
+                    <TouchableOpacity style={styles.createBtn} onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.registerBtnText}>Go back to login</Text>
                     </TouchableOpacity>
         </View>

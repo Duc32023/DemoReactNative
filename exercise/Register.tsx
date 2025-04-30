@@ -14,7 +14,10 @@ import {
 import { Icon } from 'react-native-vector-icons/Icon';
 import { TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-const Register = ()=> {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../type/type';
+type RegisterProps = NativeStackScreenProps<RootStackParamList, 'Register'>;
+const Register:React.ComponentType<RegisterProps> = ({navigation})=> {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -123,7 +126,7 @@ const Register = ()=> {
               <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
                          <Text style={styles.loginBtnText}>Signup</Text>
                      </TouchableOpacity>
-        <TouchableOpacity style={styles.createBtn} onPress={handleLogin}>
+        <TouchableOpacity style={styles.createBtn} onPress={()=> navigation.navigate('Login')}>
             <Text style={styles.registerBtnText}>Already have an account?</Text>
         </TouchableOpacity>
 
