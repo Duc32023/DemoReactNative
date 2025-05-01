@@ -13,7 +13,7 @@ const StoreContext = createContext<StoreType | null>(null);
 
 const Store = ({ children }: StoreProps) => {
   const [userLogin, setUserLogin] = useState({
-    email: 'huy@gmail.com',
+    email: 'ducduc@gmail.com',
   });
 
   const store = { currentUser: userLogin, setUserLogin };
