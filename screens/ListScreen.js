@@ -10,6 +10,8 @@ const lyThuyetComponents = [
   { name: 'Login', componentName: 'Login' },
   { name: 'Register', componentName: 'Register' },
   { name: 'ForgetPassword', componentName: 'ForgetPassword' },
+  { name: 'HomeScreen', componentName: 'HomeScreen' },
+  { name: 'DetailsScreen', componentName: 'DetailsScreen' },
 ];
 
 const thucHanhComponents = [

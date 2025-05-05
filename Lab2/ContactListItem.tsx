@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TouchableHighlight, Text, Image } from 'react-native';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import colors from '../utility/colors';
 
 interface ContactListItemProps {

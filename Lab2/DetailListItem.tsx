@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import colors from '../utility/colors';
 interface DetailListItemProps {
     icon?: string;
@@ -25,11 +25,11 @@ const DetailListItem:React.FC<DetailListItemProps> = ({ icon, title, subtitle })
   );
 };
 
-DetailListItem.propTypes = {
-  icon: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-};
+// DetailListItem.propTypes = {
+//   icon: PropTypes.string,
+//   title: PropTypes.string.isRequired,
+//   subtitle: PropTypes.string,
+// };
 
 const styles = StyleSheet.create({
   borderContainer: {

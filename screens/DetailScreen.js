@@ -15,6 +15,8 @@ import Project6 from '../Lab1/Project6';
 import Project7 from '../Lab1/Project7';
 import Project8 from '../Lab1/Project8';
 import Calycutator from '../Lab1/Calyculator';
+import HomeScreen from '../exercise/HomeScreen';
+import DetailsScreen from '../exercise/DetailsScreen';
 export default function DetailScreen({ route }) {
   const { componentName } = route.params;
 
@@ -35,6 +37,8 @@ export default function DetailScreen({ route }) {
     Project7: <Project7 />,
     Project8: <Project8 />,
     Calycutator: <Calycutator/>,
+    HomeScreen: <HomeScreen />,
+    DetailsScreen: <DetailsScreen />,
   };
 
   return componentsMap[componentName] || (

@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 interface ContactProps {
-    name: string;
-    phone: string;
+    name?: string;
+    phone?: string;
     avatar: string;
     textColor?: string;
     onPress?: () => void;
@@ -41,12 +41,12 @@ const ContactThumbnail:React.FC<ContactProps> = ({ name, phone, avatar, textColo
 
 export default ContactThumbnail;
 
-ContactThumbnail.propTypes = {
-  name: PropTypes.string,
-  phone: PropTypes.string,
-  avatar: PropTypes.string,
-  onPress: PropTypes.func,
-};
+// ContactThumbnail.propTypes = {
+//   name: PropTypes.string,
+//   phone: PropTypes.string,
+//   avatar: PropTypes.string,
+//   onPress: PropTypes.func,
+// };
 
 
 

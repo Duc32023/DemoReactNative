@@ -4,6 +4,8 @@ import { fetchRandomContact } from '../utility/api';
 import ContactThumbnail from './ContactThumbnail'
 import DetailListItem from './DetailListItem';
 import colors from '../utility/colors';
+import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src';
+import { ContactParamList } from '../type/type';
 interface Contact{
     avatar: string;
     name: string;
@@ -11,13 +13,9 @@ interface Contact{
     phone: string;
     cell: string;
 }
-const Profile = () => {
-  const [contact, setContact] = useState({});
-  useEffect(() => {
-    fetchRandomContact().then(
-      contact => setContact(contact)
-    );
-  }, []);
+type ProfileProps = NativeStackScreenProps<ContactParamList, 'Profile'>;
+const Profile:React.FC<ProfileProps> = ({route}) => {
+  const { contact } = route.params;
   const { avatar, name, email, phone, cell } = contact as Contact;
   return (
     <View style={styles.container}>
