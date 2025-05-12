@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, View, Text, StyleProp, ViewStyle } from 'react-native';
 import { Appbar, TextInput, Button } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
-
-// Định nghĩa kiểu cho dữ liệu Todo
+import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 interface TodoItem {
   id: string;
   title: string;
   complete: boolean;
 }
 
-// Định nghĩa kiểu cho props của thành phần Todo (dựa trên TodoItem)
+
 interface TodoProps {
   id: string;
   title: string;
   complete: boolean;
 }
 
-// Giả sử Todo là một thành phần đã được định nghĩa kiểu
-// Nếu Todo chưa có kiểu, cần thêm kiểu trong file Todo.tsx
+
 declare const Todo: React.FC<TodoProps>;
 
 const TodoScreen: React.FC = () => {
@@ -40,7 +40,7 @@ const TodoScreen: React.FC = () => {
     });
 
     return () => unsubscribe();
-  }, [loading]); // Thêm loading vào dependency array để tránh warning
+  }, [loading]); 
 
   const addTodo = async () => {
     if (todo.trim().length === 0) return;

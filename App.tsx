@@ -1,65 +1,84 @@
-import React, { useState } from 'react';
-import { View, Button } from 'react-native';
-import { Provider } from 'react-redux';
-import { PaperProvider } from 'react-native-paper';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { store } from './store';
-import TodoScreen from './exercise/TodoScreen'; // Đường dẫn đến TodoScreen
+import { PaperProvider } from 'react-native-paper';
+import Store from './exercise/Store'; // Sử dụng React Context từ Store.tsx
 
-// Giả sử TabNavigator và DrawerNavigator từ Lab2
-import TabNavigator from './Lab2/Route';
-import DrawerNavigator from './Lab2/Route2';
+import MainMenuScreen from './screens/MainMenuScreen';
+import ListScreen from './screens/ListScreen';
+import DetailsScreen from './exercise/DetailsScreen';
+import HomeScreen from './exercise/HomeScreen';
+import Profile from './exercise/Profile';
+import CustomDrawerBar from './exercise/CustomDrawerBar';
+import TodoScreen from './exercise/TodoScreen';
 
-// Type cho Tab Navigator
-type TabParamList = {
-  OriginalTabs: undefined;
+type RootStackParamList = {
+  MainMenu: undefined;
   TodoApp: undefined;
+  Theory: undefined;
+  Practice: undefined;
+  List: undefined;
+  Detail: undefined;
+  Ex4_DetailScreen: undefined;
 };
 
-// Type cho Drawer Navigator
-type DrawerParamList = {
-  OriginalDrawer: undefined;
-  TodoApp: undefined;
+type TheoryDrawerParamList = {
+  TheoryHome: undefined;
+  TheoryProfile: undefined;
+  TheoryDetail: undefined;
 };
 
-const Tab = createBottomTabNavigator<TabParamList>();
-const Drawer = createDrawerNavigator<DrawerParamList>();
+type PracticeDrawerParamList = {
+  Project1: undefined;
+  Project2: undefined;
+  Project3: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const PracticeDrawerNavigator = createDrawerNavigator<PracticeDrawerParamList>();
+const TheoryDrawerNavigator = createDrawerNavigator<TheoryDrawerParamList>();
+
+const TheoryDrawer = () => (
+  <TheoryDrawerNavigator.Navigator drawerContent={(props) => <CustomDrawerBar {...props} />}>
+    <TheoryDrawerNavigator.Screen name="TheoryHome" component={HomeScreen as React.ComponentType<any>} />
+    <TheoryDrawerNavigator.Screen name="TheoryProfile" component={Profile} />
+    <TheoryDrawerNavigator.Screen name="TheoryDetail" component={DetailsScreen} />
+  </TheoryDrawerNavigator.Navigator>
+);
+
+const PracticeDrawer = () => (
+  <PracticeDrawerNavigator.Navigator
+    drawerContent={(props) => <CustomDrawerBar {...props} />}
+    screenOptions={{ headerShown: false }}
+  >
+    <PracticeDrawerNavigator.Screen name="Project1" component={HomeScreen as React.ComponentType<any>} />
+    <PracticeDrawerNavigator.Screen name="Project2" component={HomeScreen as React.ComponentType<any>} />
+    <PracticeDrawerNavigator.Screen name="Project3" component={HomeScreen as React.ComponentType<any>} />
+  </PracticeDrawerNavigator.Navigator>
+);
 
 const App: React.FC = () => {
-  const [useDrawer, setUseDrawer] = useState(false);
-
-  // Custom Tab Navigator bao gồm TodoScreen
-  const CustomTabNavigator = () => (
-    <Tab.Navigator>
-      <Tab.Screen name="OriginalTabs" component={TabNavigator} />
-      <Tab.Screen name="TodoApp" component={TodoScreen} options={{ title: 'Todo App' }} />
-    </Tab.Navigator>
-  );
-
-  // Custom Drawer Navigator bao gồm TodoScreen
-  const CustomDrawerNavigator = () => (
-    <Drawer.Navigator>
-      <Drawer.Screen name="OriginalDrawer" component={DrawerNavigator} />
-      <Drawer.Screen name="TodoApp" component={TodoScreen} options={{ title: 'Todo App' }} />
-    </Drawer.Navigator>
-  );
-
   return (
-    <Provider store={store}>
+    <Store> {/* Sử dụng React Context để bao bọc ứng dụng */}
       <PaperProvider>
         <NavigationContainer>
-          <View style={{ flex: 1 }}>
-            <Button
-              title={useDrawer ? 'Switch to Tab Navigation' : 'Switch to Drawer Navigation'}
-              onPress={() => setUseDrawer(!useDrawer)}
+          <Stack.Navigator initialRouteName="MainMenu">
+            <Stack.Screen
+              name="MainMenu"
+              component={MainMenuScreen}
+              options={{ title: 'Chọn chế độ' }}
             />
-            {useDrawer ? <CustomDrawerNavigator /> : <CustomTabNavigator />}
-          </View>
+            <Stack.Screen name="TodoApp" component={TodoScreen} />
+            <Stack.Screen name="Theory" component={TheoryDrawer} />
+            <Stack.Screen name="Practice" component={PracticeDrawer} />
+            <Stack.Screen name="List" component={ListScreen} />
+            <Stack.Screen name="Detail" component={DetailsScreen} />
+            <Stack.Screen name="Ex4_DetailScreen" component={DetailsScreen} />
+          </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
-    </Provider>
+    </Store>
   );
 };
 
