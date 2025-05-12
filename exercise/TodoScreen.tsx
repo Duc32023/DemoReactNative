@@ -24,7 +24,7 @@ declare const Todo: React.FC<TodoProps>;
 const TodoScreen: React.FC = () => {
   const [todo, setTodo] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
-  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [todos, setTodos] = useState<TodoItem[]>([]);   
 
   const todosRef = firestore().collection('todos');
 
