@@ -1,85 +1,73 @@
+import 'react-native-gesture-handler'; 
+import 'react-native-reanimated'; 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { PaperProvider } from 'react-native-paper';
-import Store from './exercise/Store'; // Sử dụng React Context từ Store.tsx
-
-import MainMenuScreen from './screens/MainMenuScreen';
-import ListScreen from './screens/ListScreen';
-import DetailsScreen from './exercise/DetailsScreen';
+import Store from './exercise/Store';
 import HomeScreen from './exercise/HomeScreen';
-import Profile from './exercise/Profile';
-import CustomDrawerBar from './exercise/CustomDrawerBar';
+import DetailsScreen from './exercise/DetailsScreen';
+import CustomNavigationBar from './exercise/CustomNavigationBar';
+import Login from './exercise/Login';
+import Register from './exercise/Register';
+import ForgetPassword from './exercise/ForgetPassword';
 import TodoScreen from './exercise/TodoScreen';
+import BottomTabNavigator from './exercise/BottomTabNavigator';
 
 type RootStackParamList = {
-  MainMenu: undefined;
-  TodoApp: undefined;
-  Theory: undefined;
-  Practice: undefined;
-  List: undefined;
-  Detail: undefined;
-  Ex4_DetailScreen: undefined;
+  Login: undefined;
+  HomeScreen: undefined;
+  Register: undefined;
+  ForgetPassword: undefined;
+  Details: undefined;
+  TodoScreen: undefined;
 };
 
-type TheoryDrawerParamList = {
-  TheoryHome: undefined;
-  TheoryProfile: undefined;
-  TheoryDetail: undefined;
-};
-
-type PracticeDrawerParamList = {
-  Project1: undefined;
-  Project2: undefined;
-  Project3: undefined;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-const PracticeDrawerNavigator = createDrawerNavigator<PracticeDrawerParamList>();
-const TheoryDrawerNavigator = createDrawerNavigator<TheoryDrawerParamList>();
-
-const TheoryDrawer = () => (
-  <TheoryDrawerNavigator.Navigator drawerContent={(props) => <CustomDrawerBar {...props} />}>
-    <TheoryDrawerNavigator.Screen name="TheoryHome" component={HomeScreen as React.ComponentType<any>} />
-    <TheoryDrawerNavigator.Screen name="TheoryProfile" component={Profile} />
-    <TheoryDrawerNavigator.Screen name="TheoryDetail" component={DetailsScreen} />
-  </TheoryDrawerNavigator.Navigator>
-);
-
-const PracticeDrawer = () => (
-  <PracticeDrawerNavigator.Navigator
-    drawerContent={(props) => <CustomDrawerBar {...props} />}
-    screenOptions={{ headerShown: false }}
-  >
-    <PracticeDrawerNavigator.Screen name="Project1" component={HomeScreen as React.ComponentType<any>} />
-    <PracticeDrawerNavigator.Screen name="Project2" component={HomeScreen as React.ComponentType<any>} />
-    <PracticeDrawerNavigator.Screen name="Project3" component={HomeScreen as React.ComponentType<any>} />
-  </PracticeDrawerNavigator.Navigator>
-);
-
-const App: React.FC = () => {
+const Stack = createNativeStackNavigator<RootStackParamList>(); 
+export default function App() {
   return (
-    <Store> {/* Sử dụng React Context để bao bọc ứng dụng */}
+    <Store>
       <PaperProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="MainMenu">
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              header: (props) => <CustomNavigationBar {...props} />,
+            }}
+          >
             <Stack.Screen
-              name="MainMenu"
-              component={MainMenuScreen}
-              options={{ title: 'Chọn chế độ' }}
+              name="Login"
+              component={Login}
+              options={{ headerShown: true }}
             />
-            <Stack.Screen name="TodoApp" component={TodoScreen} />
-            <Stack.Screen name="Theory" component={TheoryDrawer} />
-            <Stack.Screen name="Practice" component={PracticeDrawer} />
-            <Stack.Screen name="List" component={ListScreen} />
-            <Stack.Screen name="Detail" component={DetailsScreen} />
-            <Stack.Screen name="Ex4_DetailScreen" component={DetailsScreen} />
+            <Stack.Screen
+              name="HomeScreen"
+              component={BottomTabNavigator}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="ForgetPassword"
+              component={ForgetPassword}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={DetailsScreen}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="TodoScreen"
+              component={TodoScreen}
+              options={{ headerShown: true, title: 'Todo List' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </Store>
   );
-};
-
-export default App;
+}
